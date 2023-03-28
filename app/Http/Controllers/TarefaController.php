@@ -34,24 +34,39 @@ class TarefaController extends Controller
     {
         $tarefa = Tarefa::find($id);
 
-        return [$tarefa];
-
+        return $tarefa;
     }
 
-    public function marcarStatusTarefaConcluido(Request $request)
+    public function updateDoTituloDaTarefa(Request $request)
     {
-        
         $id = $request->id;
+        $tarefa = Tarefa::find($id);
+        $tarefa->titulo = $request->titulo;
+        $tarefa->save();
 
-        try{
-            $tarefa = Tarefa::find($id);
-            $tarefa->status = $request->status;
-            $tarefa->save();
+        return "Tarefa alterada com sucesso.";
+    }
 
-            return "alterado com sucesso.";
-        } catch (Exception $ex) {
-            return $ex->getMessage();
-        }
+     public function marcarStatusTarefaConcluido(Request $request)
+     {
+       $id = $request->id;
+       try{
+           $tarefa = Tarefa::find($id);
+           $tarefa->status = !$request->status ? true : false;
+           $tarefa->save();
+           return "alterado com sucesso.";
+       } catch (Exception $ex) {
+           return $ex->getMessage();
+       }
+     }
+
+    public function delete(Request $request)
+    {
+
+        $tarefa = Tarefa::find($request->id);
+        $tarefa->delete();
+
+        return "Tarefa Removida com sucesso";
     }
 
 

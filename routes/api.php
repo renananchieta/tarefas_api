@@ -22,4 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/tarefas', [TarefaController::class, 'index']);
 Route::post('/tarefas/store', [TarefaController::class, 'store']);
 Route::get('/tarefa/{id}', [TarefaController::class, 'show']);
+Route::post('/tarefa/update/titulo/{id}', [TarefaController::class, 'updateDoTituloDaTarefa']);
 Route::post('/tarefa/status/update', [TarefaController::class, 'marcarStatusTarefaConcluido']);
+Route::post('/tarefa/delete', [TarefaController::class , 'delete']);
